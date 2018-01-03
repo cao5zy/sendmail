@@ -1,0 +1,18 @@
+let email = require('emailjs');
+console.log("to email:", "{{ to_email }}");
+
+let server = email.server.connect({
+    user:    "{{ smtp_usr }}",
+    password:"{{ smtp_pwd }}",
+    host:    "{{ mailsvr }}",
+    ssl:     false
+});
+
+// send the message and get a callback with an error or details of the message that was sent
+
+server.send({
+    text:    "i hope this works",
+    from:    "you <noreply@agiler.com>",
+    to:      "someone <{{ to_email }}>",
+    subject: "testing emailjs"
+}, function(err, message) { console.log(err || message); });

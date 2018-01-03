@@ -1,0 +1,14 @@
+{
+  "name": "send_mail_app",
+  "version": "1.0.0",
+  "description": "send mail",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "alan cao",
+  "license": "ISC",
+  "dependencies": {
+    "emailjs": "^1.0.12"
+  }
+}

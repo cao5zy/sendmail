@@ -9,8 +9,13 @@
     mailsvr: "mail-svr"
     mailsvr_port: 25
     smtp_svr: "smtp.bar.com"
-    smtp_usr: "alan:alan123"
+    smtp_usr: "alan"
+    smtp_pwd: "alan123"
     mailsvr_image: "catatnight/postfix"
+    to_email: ""
+    app_source: "/home/caozy/agiler-microservice/sendmail/app"
+    container_app_source: "/app"
+    sendmailsvr: "test-send-email"
     
   tasks:
   - name: build postfix container
@@ -22,6 +27,22 @@
       - "{{ mailsvr_port }}"
       env: 
         maildomain: "{{ smtp_svr }}"
-        smtp_user: "{{ smtp_usr }}"
+        smtp_user: "{{ smtp_usr }}:{{ smtp_pwd }}"
 
+  - name: apply setting to file
+    template:
+      src: "{{ app_source }}/index.js.template"
+      dest: "{{ app_source }}/index.js"
+      
+  - name: build test node app
+    docker_container:
+      name: "{{ sendmailsvr }}"
+      image: "node:6.10.3"
+      volumes:
+      - "{{ app_source }}:{{ container_app_source }}"
+      entrypoint: "node {{ container_app_source }}/index.js"
+      links:
+      - "{{ mailsvr }}:{{ mailsvr }}"
+      state: started
+      recreate: yes
 ...
