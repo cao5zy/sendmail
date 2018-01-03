@@ -1,0 +1,27 @@
+---
+
+- name: build the sending email environment
+  hosts: localhost
+  become: true
+  become_method: sudo
+
+  vars:
+    mailsvr: "mail-svr"
+    mailsvr_port: 25
+    smtp_svr: "smtp.bar.com"
+    smtp_usr: "alan:alan123"
+    mailsvr_image: "catatnight/postfix"
+    
+  tasks:
+  - name: build postfix container
+    docker_container:
+      name: "{{ mailsvr }}"
+      image: "{{ mailsvr_image }}"
+      state: started
+      exposed:
+      - "{{ mailsvr_port }}"
+      env: 
+        maildomain: "{{ smtp_svr }}"
+        smtp_user: "{{ smtp_usr }}"
+
+...
