@@ -1,6 +1,6 @@
 # sendmail project
 
-This project currently tested with [emailjs](https://www.npmjs.com/package/emailjs) and [catatnight/postfix](https://hub.docker.com/r/catatnight/postfix/). If you tested with [nodemailer](https://www.npmjs.com/package/nodemailer) you should consider the tls property in the option.  
+This project currently tested with [emailjs](https://www.npmjs.com/package/emailjs) and [catatnight/postfix](https://hub.docker.com/r/catatnight/postfix/). If you tested with [nodemailer](https://www.npmjs.com/package/nodemailer) you should consider the __tls__ property in the option.  
 
     var mailtransport = nodemailer.createTransport({
         host: "host of postfix container",
